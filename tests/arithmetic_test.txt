@@ -1,0 +1,25 @@
+
+main{
+
+    string a = "Hello5";
+    string g = "Goodbye5";
+    string o = "Goodbye2";
+    int z = 25;
+    int y = 5;
+    int t = 2;
+    int k = 2;
+    int r = 6;
+
+    r = z-y-t*k;
+
+
+    if(r == 16){
+        print(a);
+    }ifelse(y>r){
+        print(o);
+    }else{
+        print(g);
+    }
+    return 0;
+}
+

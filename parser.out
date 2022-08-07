@@ -1,0 +1,2556 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> code
+Rule 1     code -> code_block
+Rule 2     code -> code_blocks
+Rule 3     code_blocks -> code_block code_blocks
+Rule 4     code_blocks -> code_block code_block
+Rule 5     code_block -> main
+Rule 6     code_block -> funct_def
+Rule 7     instruction -> NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+Rule 8     instruction -> NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+Rule 9     instruction -> NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+Rule 10    function_input -> expression COMA expression
+Rule 11    function_input -> expression COMA function_input
+Rule 12    funct_def -> INT_FUN NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+Rule 13    funct_def -> VOID NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+Rule 14    funct_param -> LEFT_BRACKET empty RIGHT_BRACKET
+Rule 15    funct_param -> LEFT_BRACKET expression RIGHT_BRACKET
+Rule 16    funct_param -> LEFT_BRACKET expressions RIGHT_BRACKET
+Rule 17    expressions -> expression COMA expression
+Rule 18    expressions -> expressions COMA expression
+Rule 19    main -> MAIN LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+Rule 20    main -> MAIN LEFT_CURLY_BRACKET condition RIGHT_CURLY_BRACKET
+Rule 21    main -> MAIN LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET
+Rule 22    instruction -> RETURN instruction
+Rule 23    condition -> LEFT_BRACKET expression MORE expression RIGHT_BRACKET
+Rule 24    condition -> LEFT_BRACKET expression LESS expression RIGHT_BRACKET
+Rule 25    condition -> LEFT_BRACKET expression MORE_OR_EQUAL expression RIGHT_BRACKET
+Rule 26    condition -> LEFT_BRACKET expression LESS_OR_EQUAL expression RIGHT_BRACKET
+Rule 27    condition -> LEFT_BRACKET expression IS_EQUAL expression RIGHT_BRACKET
+Rule 28    instruction -> WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+Rule 29    instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+Rule 30    instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+Rule 31    if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+Rule 32    if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+Rule 33    else -> ELSE LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+Rule 34    else -> ELSE LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET
+Rule 35    expression -> expression MULTIPLY expression
+Rule 36    expression -> expression DIVIDE expression
+Rule 37    expression -> expression PLUS expression
+Rule 38    expression -> expression MINUS expression
+Rule 39    instruction -> expression SEMICOLON
+Rule 40    instruction -> declaration SEMICOLON
+Rule 41    instruction -> instruction instruction
+Rule 42    expression -> INT
+Rule 43    expression -> NAME
+Rule 44    expression -> APOSTROF NAME APOSTROF
+Rule 45    declaration -> INT_FUN NAME
+Rule 46    declaration -> STRING NAME
+Rule 47    expression -> declaration EQUALS expression
+Rule 48    expression -> NAME EQUALS expression
+Rule 49    declarations -> declaration COMA declaration
+Rule 50    declarations -> declaration COMA declarations
+Rule 51    instruction -> PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+Rule 52    empty -> <empty>
+
+Terminals, with rules where they appear
+
+APOSTROF             : 44 44
+COMA                 : 10 11 17 18 49 50
+DIVIDE               : 36
+ELSE                 : 33 34
+EQUALS               : 47 48
+IF                   : 29 30
+IF_ELSE              : 31 32
+INT                  : 42
+INT_FUN              : 12 45
+IS_EQUAL             : 27
+LEFT_BRACKET         : 7 8 9 14 15 16 23 24 25 26 27 51
+LEFT_CURLY_BRACKET   : 12 13 19 20 21 28 29 30 31 32 33 34
+LESS                 : 24
+LESS_OR_EQUAL        : 26
+MAIN                 : 19 20 21
+MINUS                : 38
+MORE                 : 23
+MORE_OR_EQUAL        : 25
+MULTIPLY             : 35
+NAME                 : 7 8 9 12 13 43 44 45 46 48
+PLUS                 : 37
+PRINT                : 51
+RETURN               : 22
+RIGHT_BRACKET        : 7 8 9 14 15 16 23 24 25 26 27 51
+RIGHT_CURLY_BRACKET  : 12 13 19 20 21 28 29 30 31 32 33 34
+SEMICOLON            : 7 8 9 39 40 51
+STRING               : 46
+VOID                 : 13
+WHILE                : 28
+error                : 
+
+Nonterminals, with rules where they appear
+
+code                 : 0
+code_block           : 1 3 4 4
+code_blocks          : 2 3
+condition            : 20 28 29 30 31 32
+declaration          : 40 47 49 49 50
+declarations         : 50
+else                 : 29 31
+empty                : 7 14 21 34
+expression           : 8 10 10 11 15 17 17 18 23 23 24 24 25 25 26 26 27 27 35 35 36 36 37 37 38 38 39 47 48 51
+expressions          : 16 18
+funct_def            : 6
+funct_param          : 12 13
+function_input       : 9 11
+if_else_block        : 30 32
+instruction          : 12 13 19 22 28 29 30 31 32 33 41 41
+main                 : 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . code
+    (1) code -> . code_block
+    (2) code -> . code_blocks
+    (5) code_block -> . main
+    (6) code_block -> . funct_def
+    (3) code_blocks -> . code_block code_blocks
+    (4) code_blocks -> . code_block code_block
+    (19) main -> . MAIN LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (20) main -> . MAIN LEFT_CURLY_BRACKET condition RIGHT_CURLY_BRACKET
+    (21) main -> . MAIN LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET
+    (12) funct_def -> . INT_FUN NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (13) funct_def -> . VOID NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+
+    MAIN            shift and go to state 6
+    INT_FUN         shift and go to state 7
+    VOID            shift and go to state 8
+
+    code                           shift and go to state 1
+    code_block                     shift and go to state 2
+    code_blocks                    shift and go to state 3
+    main                           shift and go to state 4
+    funct_def                      shift and go to state 5
+
+state 1
+
+    (0) S' -> code .
+
+
+
+state 2
+
+    (1) code -> code_block .
+    (3) code_blocks -> code_block . code_blocks
+    (4) code_blocks -> code_block . code_block
+    (3) code_blocks -> . code_block code_blocks
+    (4) code_blocks -> . code_block code_block
+    (5) code_block -> . main
+    (6) code_block -> . funct_def
+    (19) main -> . MAIN LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (20) main -> . MAIN LEFT_CURLY_BRACKET condition RIGHT_CURLY_BRACKET
+    (21) main -> . MAIN LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET
+    (12) funct_def -> . INT_FUN NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (13) funct_def -> . VOID NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+
+    $end            reduce using rule 1 (code -> code_block .)
+    MAIN            shift and go to state 6
+    INT_FUN         shift and go to state 7
+    VOID            shift and go to state 8
+
+    code_block                     shift and go to state 9
+    code_blocks                    shift and go to state 10
+    main                           shift and go to state 4
+    funct_def                      shift and go to state 5
+
+state 3
+
+    (2) code -> code_blocks .
+
+    $end            reduce using rule 2 (code -> code_blocks .)
+
+
+state 4
+
+    (5) code_block -> main .
+
+    MAIN            reduce using rule 5 (code_block -> main .)
+    INT_FUN         reduce using rule 5 (code_block -> main .)
+    VOID            reduce using rule 5 (code_block -> main .)
+    $end            reduce using rule 5 (code_block -> main .)
+
+
+state 5
+
+    (6) code_block -> funct_def .
+
+    MAIN            reduce using rule 6 (code_block -> funct_def .)
+    INT_FUN         reduce using rule 6 (code_block -> funct_def .)
+    VOID            reduce using rule 6 (code_block -> funct_def .)
+    $end            reduce using rule 6 (code_block -> funct_def .)
+
+
+state 6
+
+    (19) main -> MAIN . LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (20) main -> MAIN . LEFT_CURLY_BRACKET condition RIGHT_CURLY_BRACKET
+    (21) main -> MAIN . LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET
+
+    LEFT_CURLY_BRACKET shift and go to state 11
+
+
+state 7
+
+    (12) funct_def -> INT_FUN . NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+
+    NAME            shift and go to state 12
+
+
+state 8
+
+    (13) funct_def -> VOID . NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+
+    NAME            shift and go to state 13
+
+
+state 9
+
+    (4) code_blocks -> code_block code_block .
+    (3) code_blocks -> code_block . code_blocks
+    (4) code_blocks -> code_block . code_block
+    (3) code_blocks -> . code_block code_blocks
+    (4) code_blocks -> . code_block code_block
+    (5) code_block -> . main
+    (6) code_block -> . funct_def
+    (19) main -> . MAIN LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (20) main -> . MAIN LEFT_CURLY_BRACKET condition RIGHT_CURLY_BRACKET
+    (21) main -> . MAIN LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET
+    (12) funct_def -> . INT_FUN NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (13) funct_def -> . VOID NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+
+    $end            reduce using rule 4 (code_blocks -> code_block code_block .)
+    MAIN            shift and go to state 6
+    INT_FUN         shift and go to state 7
+    VOID            shift and go to state 8
+
+    code_block                     shift and go to state 9
+    code_blocks                    shift and go to state 10
+    main                           shift and go to state 4
+    funct_def                      shift and go to state 5
+
+state 10
+
+    (3) code_blocks -> code_block code_blocks .
+
+    $end            reduce using rule 3 (code_blocks -> code_block code_blocks .)
+
+
+state 11
+
+    (19) main -> MAIN LEFT_CURLY_BRACKET . instruction RIGHT_CURLY_BRACKET
+    (20) main -> MAIN LEFT_CURLY_BRACKET . condition RIGHT_CURLY_BRACKET
+    (21) main -> MAIN LEFT_CURLY_BRACKET . empty RIGHT_CURLY_BRACKET
+    (7) instruction -> . NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> . NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> . NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (22) instruction -> . RETURN instruction
+    (28) instruction -> . WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (29) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (39) instruction -> . expression SEMICOLON
+    (40) instruction -> . declaration SEMICOLON
+    (41) instruction -> . instruction instruction
+    (51) instruction -> . PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (23) condition -> . LEFT_BRACKET expression MORE expression RIGHT_BRACKET
+    (24) condition -> . LEFT_BRACKET expression LESS expression RIGHT_BRACKET
+    (25) condition -> . LEFT_BRACKET expression MORE_OR_EQUAL expression RIGHT_BRACKET
+    (26) condition -> . LEFT_BRACKET expression LESS_OR_EQUAL expression RIGHT_BRACKET
+    (27) condition -> . LEFT_BRACKET expression IS_EQUAL expression RIGHT_BRACKET
+    (52) empty -> .
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    NAME            shift and go to state 17
+    RETURN          shift and go to state 20
+    WHILE           shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 24
+    LEFT_BRACKET    shift and go to state 18
+    RIGHT_CURLY_BRACKET reduce using rule 52 (empty -> .)
+    INT             shift and go to state 25
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    instruction                    shift and go to state 14
+    condition                      shift and go to state 15
+    empty                          shift and go to state 16
+    expression                     shift and go to state 19
+    declaration                    shift and go to state 23
+
+state 12
+
+    (12) funct_def -> INT_FUN NAME . funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (14) funct_param -> . LEFT_BRACKET empty RIGHT_BRACKET
+    (15) funct_param -> . LEFT_BRACKET expression RIGHT_BRACKET
+    (16) funct_param -> . LEFT_BRACKET expressions RIGHT_BRACKET
+
+    LEFT_BRACKET    shift and go to state 30
+
+    funct_param                    shift and go to state 29
+
+state 13
+
+    (13) funct_def -> VOID NAME . funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (14) funct_param -> . LEFT_BRACKET empty RIGHT_BRACKET
+    (15) funct_param -> . LEFT_BRACKET expression RIGHT_BRACKET
+    (16) funct_param -> . LEFT_BRACKET expressions RIGHT_BRACKET
+
+    LEFT_BRACKET    shift and go to state 30
+
+    funct_param                    shift and go to state 31
+
+state 14
+
+    (19) main -> MAIN LEFT_CURLY_BRACKET instruction . RIGHT_CURLY_BRACKET
+    (41) instruction -> instruction . instruction
+    (7) instruction -> . NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> . NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> . NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (22) instruction -> . RETURN instruction
+    (28) instruction -> . WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (29) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (39) instruction -> . expression SEMICOLON
+    (40) instruction -> . declaration SEMICOLON
+    (41) instruction -> . instruction instruction
+    (51) instruction -> . PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    RIGHT_CURLY_BRACKET shift and go to state 33
+    NAME            shift and go to state 17
+    RETURN          shift and go to state 20
+    WHILE           shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 24
+    INT             shift and go to state 25
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    instruction                    shift and go to state 32
+    expression                     shift and go to state 19
+    declaration                    shift and go to state 23
+
+state 15
+
+    (20) main -> MAIN LEFT_CURLY_BRACKET condition . RIGHT_CURLY_BRACKET
+
+    RIGHT_CURLY_BRACKET shift and go to state 34
+
+
+state 16
+
+    (21) main -> MAIN LEFT_CURLY_BRACKET empty . RIGHT_CURLY_BRACKET
+
+    RIGHT_CURLY_BRACKET shift and go to state 35
+
+
+state 17
+
+    (7) instruction -> NAME . LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> NAME . LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> NAME . LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (43) expression -> NAME .
+    (48) expression -> NAME . EQUALS expression
+
+    LEFT_BRACKET    shift and go to state 36
+    SEMICOLON       reduce using rule 43 (expression -> NAME .)
+    MULTIPLY        reduce using rule 43 (expression -> NAME .)
+    DIVIDE          reduce using rule 43 (expression -> NAME .)
+    PLUS            reduce using rule 43 (expression -> NAME .)
+    MINUS           reduce using rule 43 (expression -> NAME .)
+    EQUALS          shift and go to state 37
+
+
+state 18
+
+    (23) condition -> LEFT_BRACKET . expression MORE expression RIGHT_BRACKET
+    (24) condition -> LEFT_BRACKET . expression LESS expression RIGHT_BRACKET
+    (25) condition -> LEFT_BRACKET . expression MORE_OR_EQUAL expression RIGHT_BRACKET
+    (26) condition -> LEFT_BRACKET . expression LESS_OR_EQUAL expression RIGHT_BRACKET
+    (27) condition -> LEFT_BRACKET . expression IS_EQUAL expression RIGHT_BRACKET
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    expression                     shift and go to state 38
+    declaration                    shift and go to state 40
+
+state 19
+
+    (39) instruction -> expression . SEMICOLON
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+
+    SEMICOLON       shift and go to state 41
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+
+state 20
+
+    (22) instruction -> RETURN . instruction
+    (7) instruction -> . NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> . NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> . NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (22) instruction -> . RETURN instruction
+    (28) instruction -> . WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (29) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (39) instruction -> . expression SEMICOLON
+    (40) instruction -> . declaration SEMICOLON
+    (41) instruction -> . instruction instruction
+    (51) instruction -> . PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    NAME            shift and go to state 17
+    RETURN          shift and go to state 20
+    WHILE           shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 24
+    INT             shift and go to state 25
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    instruction                    shift and go to state 46
+    expression                     shift and go to state 19
+    declaration                    shift and go to state 23
+
+state 21
+
+    (28) instruction -> WHILE . condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (23) condition -> . LEFT_BRACKET expression MORE expression RIGHT_BRACKET
+    (24) condition -> . LEFT_BRACKET expression LESS expression RIGHT_BRACKET
+    (25) condition -> . LEFT_BRACKET expression MORE_OR_EQUAL expression RIGHT_BRACKET
+    (26) condition -> . LEFT_BRACKET expression LESS_OR_EQUAL expression RIGHT_BRACKET
+    (27) condition -> . LEFT_BRACKET expression IS_EQUAL expression RIGHT_BRACKET
+
+    LEFT_BRACKET    shift and go to state 18
+
+    condition                      shift and go to state 47
+
+state 22
+
+    (29) instruction -> IF . condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> IF . condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (23) condition -> . LEFT_BRACKET expression MORE expression RIGHT_BRACKET
+    (24) condition -> . LEFT_BRACKET expression LESS expression RIGHT_BRACKET
+    (25) condition -> . LEFT_BRACKET expression MORE_OR_EQUAL expression RIGHT_BRACKET
+    (26) condition -> . LEFT_BRACKET expression LESS_OR_EQUAL expression RIGHT_BRACKET
+    (27) condition -> . LEFT_BRACKET expression IS_EQUAL expression RIGHT_BRACKET
+
+    LEFT_BRACKET    shift and go to state 18
+
+    condition                      shift and go to state 48
+
+state 23
+
+    (40) instruction -> declaration . SEMICOLON
+    (47) expression -> declaration . EQUALS expression
+
+    SEMICOLON       shift and go to state 49
+    EQUALS          shift and go to state 50
+
+
+state 24
+
+    (51) instruction -> PRINT . LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+
+    LEFT_BRACKET    shift and go to state 51
+
+
+state 25
+
+    (42) expression -> INT .
+
+    SEMICOLON       reduce using rule 42 (expression -> INT .)
+    MULTIPLY        reduce using rule 42 (expression -> INT .)
+    DIVIDE          reduce using rule 42 (expression -> INT .)
+    PLUS            reduce using rule 42 (expression -> INT .)
+    MINUS           reduce using rule 42 (expression -> INT .)
+    MORE            reduce using rule 42 (expression -> INT .)
+    LESS            reduce using rule 42 (expression -> INT .)
+    MORE_OR_EQUAL   reduce using rule 42 (expression -> INT .)
+    LESS_OR_EQUAL   reduce using rule 42 (expression -> INT .)
+    IS_EQUAL        reduce using rule 42 (expression -> INT .)
+    RIGHT_BRACKET   reduce using rule 42 (expression -> INT .)
+    COMA            reduce using rule 42 (expression -> INT .)
+
+
+state 26
+
+    (44) expression -> APOSTROF . NAME APOSTROF
+
+    NAME            shift and go to state 52
+
+
+state 27
+
+    (45) declaration -> INT_FUN . NAME
+
+    NAME            shift and go to state 53
+
+
+state 28
+
+    (46) declaration -> STRING . NAME
+
+    NAME            shift and go to state 54
+
+
+state 29
+
+    (12) funct_def -> INT_FUN NAME funct_param . LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+
+    LEFT_CURLY_BRACKET shift and go to state 55
+
+
+state 30
+
+    (14) funct_param -> LEFT_BRACKET . empty RIGHT_BRACKET
+    (15) funct_param -> LEFT_BRACKET . expression RIGHT_BRACKET
+    (16) funct_param -> LEFT_BRACKET . expressions RIGHT_BRACKET
+    (52) empty -> .
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (17) expressions -> . expression COMA expression
+    (18) expressions -> . expressions COMA expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    RIGHT_BRACKET   reduce using rule 52 (empty -> .)
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    empty                          shift and go to state 56
+    expression                     shift and go to state 57
+    expressions                    shift and go to state 58
+    declaration                    shift and go to state 40
+
+state 31
+
+    (13) funct_def -> VOID NAME funct_param . LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+
+    LEFT_CURLY_BRACKET shift and go to state 59
+
+
+state 32
+
+    (41) instruction -> instruction instruction .
+    (41) instruction -> instruction . instruction
+    (7) instruction -> . NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> . NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> . NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (22) instruction -> . RETURN instruction
+    (28) instruction -> . WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (29) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (39) instruction -> . expression SEMICOLON
+    (40) instruction -> . declaration SEMICOLON
+    (41) instruction -> . instruction instruction
+    (51) instruction -> . PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+  ! shift/reduce conflict for NAME resolved as shift
+  ! shift/reduce conflict for RETURN resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for INT resolved as shift
+  ! shift/reduce conflict for APOSTROF resolved as shift
+  ! shift/reduce conflict for INT_FUN resolved as shift
+  ! shift/reduce conflict for STRING resolved as shift
+    RIGHT_CURLY_BRACKET reduce using rule 41 (instruction -> instruction instruction .)
+    NAME            shift and go to state 17
+    RETURN          shift and go to state 20
+    WHILE           shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 24
+    INT             shift and go to state 25
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+  ! NAME            [ reduce using rule 41 (instruction -> instruction instruction .) ]
+  ! RETURN          [ reduce using rule 41 (instruction -> instruction instruction .) ]
+  ! WHILE           [ reduce using rule 41 (instruction -> instruction instruction .) ]
+  ! IF              [ reduce using rule 41 (instruction -> instruction instruction .) ]
+  ! PRINT           [ reduce using rule 41 (instruction -> instruction instruction .) ]
+  ! INT             [ reduce using rule 41 (instruction -> instruction instruction .) ]
+  ! APOSTROF        [ reduce using rule 41 (instruction -> instruction instruction .) ]
+  ! INT_FUN         [ reduce using rule 41 (instruction -> instruction instruction .) ]
+  ! STRING          [ reduce using rule 41 (instruction -> instruction instruction .) ]
+
+    instruction                    shift and go to state 32
+    expression                     shift and go to state 19
+    declaration                    shift and go to state 23
+
+state 33
+
+    (19) main -> MAIN LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .
+
+    MAIN            reduce using rule 19 (main -> MAIN LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    INT_FUN         reduce using rule 19 (main -> MAIN LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    VOID            reduce using rule 19 (main -> MAIN LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    $end            reduce using rule 19 (main -> MAIN LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+
+
+state 34
+
+    (20) main -> MAIN LEFT_CURLY_BRACKET condition RIGHT_CURLY_BRACKET .
+
+    MAIN            reduce using rule 20 (main -> MAIN LEFT_CURLY_BRACKET condition RIGHT_CURLY_BRACKET .)
+    INT_FUN         reduce using rule 20 (main -> MAIN LEFT_CURLY_BRACKET condition RIGHT_CURLY_BRACKET .)
+    VOID            reduce using rule 20 (main -> MAIN LEFT_CURLY_BRACKET condition RIGHT_CURLY_BRACKET .)
+    $end            reduce using rule 20 (main -> MAIN LEFT_CURLY_BRACKET condition RIGHT_CURLY_BRACKET .)
+
+
+state 35
+
+    (21) main -> MAIN LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET .
+
+    MAIN            reduce using rule 21 (main -> MAIN LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET .)
+    INT_FUN         reduce using rule 21 (main -> MAIN LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET .)
+    VOID            reduce using rule 21 (main -> MAIN LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET .)
+    $end            reduce using rule 21 (main -> MAIN LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET .)
+
+
+state 36
+
+    (7) instruction -> NAME LEFT_BRACKET . empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> NAME LEFT_BRACKET . expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> NAME LEFT_BRACKET . function_input RIGHT_BRACKET SEMICOLON
+    (52) empty -> .
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (10) function_input -> . expression COMA expression
+    (11) function_input -> . expression COMA function_input
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    RIGHT_BRACKET   reduce using rule 52 (empty -> .)
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    empty                          shift and go to state 60
+    expression                     shift and go to state 61
+    function_input                 shift and go to state 62
+    declaration                    shift and go to state 40
+
+state 37
+
+    (48) expression -> NAME EQUALS . expression
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    expression                     shift and go to state 63
+    declaration                    shift and go to state 40
+
+state 38
+
+    (23) condition -> LEFT_BRACKET expression . MORE expression RIGHT_BRACKET
+    (24) condition -> LEFT_BRACKET expression . LESS expression RIGHT_BRACKET
+    (25) condition -> LEFT_BRACKET expression . MORE_OR_EQUAL expression RIGHT_BRACKET
+    (26) condition -> LEFT_BRACKET expression . LESS_OR_EQUAL expression RIGHT_BRACKET
+    (27) condition -> LEFT_BRACKET expression . IS_EQUAL expression RIGHT_BRACKET
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+
+    MORE            shift and go to state 64
+    LESS            shift and go to state 65
+    MORE_OR_EQUAL   shift and go to state 66
+    LESS_OR_EQUAL   shift and go to state 67
+    IS_EQUAL        shift and go to state 68
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+
+state 39
+
+    (43) expression -> NAME .
+    (48) expression -> NAME . EQUALS expression
+
+    MORE            reduce using rule 43 (expression -> NAME .)
+    LESS            reduce using rule 43 (expression -> NAME .)
+    MORE_OR_EQUAL   reduce using rule 43 (expression -> NAME .)
+    LESS_OR_EQUAL   reduce using rule 43 (expression -> NAME .)
+    IS_EQUAL        reduce using rule 43 (expression -> NAME .)
+    MULTIPLY        reduce using rule 43 (expression -> NAME .)
+    DIVIDE          reduce using rule 43 (expression -> NAME .)
+    PLUS            reduce using rule 43 (expression -> NAME .)
+    MINUS           reduce using rule 43 (expression -> NAME .)
+    RIGHT_BRACKET   reduce using rule 43 (expression -> NAME .)
+    COMA            reduce using rule 43 (expression -> NAME .)
+    SEMICOLON       reduce using rule 43 (expression -> NAME .)
+    EQUALS          shift and go to state 37
+
+
+state 40
+
+    (47) expression -> declaration . EQUALS expression
+
+    EQUALS          shift and go to state 50
+
+
+state 41
+
+    (39) instruction -> expression SEMICOLON .
+
+    RIGHT_CURLY_BRACKET reduce using rule 39 (instruction -> expression SEMICOLON .)
+    NAME            reduce using rule 39 (instruction -> expression SEMICOLON .)
+    RETURN          reduce using rule 39 (instruction -> expression SEMICOLON .)
+    WHILE           reduce using rule 39 (instruction -> expression SEMICOLON .)
+    IF              reduce using rule 39 (instruction -> expression SEMICOLON .)
+    PRINT           reduce using rule 39 (instruction -> expression SEMICOLON .)
+    INT             reduce using rule 39 (instruction -> expression SEMICOLON .)
+    APOSTROF        reduce using rule 39 (instruction -> expression SEMICOLON .)
+    INT_FUN         reduce using rule 39 (instruction -> expression SEMICOLON .)
+    STRING          reduce using rule 39 (instruction -> expression SEMICOLON .)
+
+
+state 42
+
+    (35) expression -> expression MULTIPLY . expression
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    expression                     shift and go to state 69
+    declaration                    shift and go to state 40
+
+state 43
+
+    (36) expression -> expression DIVIDE . expression
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    expression                     shift and go to state 70
+    declaration                    shift and go to state 40
+
+state 44
+
+    (37) expression -> expression PLUS . expression
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    expression                     shift and go to state 71
+    declaration                    shift and go to state 40
+
+state 45
+
+    (38) expression -> expression MINUS . expression
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    expression                     shift and go to state 72
+    declaration                    shift and go to state 40
+
+state 46
+
+    (22) instruction -> RETURN instruction .
+    (41) instruction -> instruction . instruction
+    (7) instruction -> . NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> . NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> . NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (22) instruction -> . RETURN instruction
+    (28) instruction -> . WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (29) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (39) instruction -> . expression SEMICOLON
+    (40) instruction -> . declaration SEMICOLON
+    (41) instruction -> . instruction instruction
+    (51) instruction -> . PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+  ! shift/reduce conflict for NAME resolved as shift
+  ! shift/reduce conflict for RETURN resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for INT resolved as shift
+  ! shift/reduce conflict for APOSTROF resolved as shift
+  ! shift/reduce conflict for INT_FUN resolved as shift
+  ! shift/reduce conflict for STRING resolved as shift
+    RIGHT_CURLY_BRACKET reduce using rule 22 (instruction -> RETURN instruction .)
+    NAME            shift and go to state 17
+    RETURN          shift and go to state 20
+    WHILE           shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 24
+    INT             shift and go to state 25
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+  ! NAME            [ reduce using rule 22 (instruction -> RETURN instruction .) ]
+  ! RETURN          [ reduce using rule 22 (instruction -> RETURN instruction .) ]
+  ! WHILE           [ reduce using rule 22 (instruction -> RETURN instruction .) ]
+  ! IF              [ reduce using rule 22 (instruction -> RETURN instruction .) ]
+  ! PRINT           [ reduce using rule 22 (instruction -> RETURN instruction .) ]
+  ! INT             [ reduce using rule 22 (instruction -> RETURN instruction .) ]
+  ! APOSTROF        [ reduce using rule 22 (instruction -> RETURN instruction .) ]
+  ! INT_FUN         [ reduce using rule 22 (instruction -> RETURN instruction .) ]
+  ! STRING          [ reduce using rule 22 (instruction -> RETURN instruction .) ]
+
+    instruction                    shift and go to state 32
+    expression                     shift and go to state 19
+    declaration                    shift and go to state 23
+
+state 47
+
+    (28) instruction -> WHILE condition . LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+
+    LEFT_CURLY_BRACKET shift and go to state 73
+
+
+state 48
+
+    (29) instruction -> IF condition . LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> IF condition . LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+
+    LEFT_CURLY_BRACKET shift and go to state 74
+
+
+state 49
+
+    (40) instruction -> declaration SEMICOLON .
+
+    RIGHT_CURLY_BRACKET reduce using rule 40 (instruction -> declaration SEMICOLON .)
+    NAME            reduce using rule 40 (instruction -> declaration SEMICOLON .)
+    RETURN          reduce using rule 40 (instruction -> declaration SEMICOLON .)
+    WHILE           reduce using rule 40 (instruction -> declaration SEMICOLON .)
+    IF              reduce using rule 40 (instruction -> declaration SEMICOLON .)
+    PRINT           reduce using rule 40 (instruction -> declaration SEMICOLON .)
+    INT             reduce using rule 40 (instruction -> declaration SEMICOLON .)
+    APOSTROF        reduce using rule 40 (instruction -> declaration SEMICOLON .)
+    INT_FUN         reduce using rule 40 (instruction -> declaration SEMICOLON .)
+    STRING          reduce using rule 40 (instruction -> declaration SEMICOLON .)
+
+
+state 50
+
+    (47) expression -> declaration EQUALS . expression
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    declaration                    shift and go to state 40
+    expression                     shift and go to state 75
+
+state 51
+
+    (51) instruction -> PRINT LEFT_BRACKET . expression RIGHT_BRACKET SEMICOLON
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    expression                     shift and go to state 76
+    declaration                    shift and go to state 40
+
+state 52
+
+    (44) expression -> APOSTROF NAME . APOSTROF
+
+    APOSTROF        shift and go to state 77
+
+
+state 53
+
+    (45) declaration -> INT_FUN NAME .
+
+    SEMICOLON       reduce using rule 45 (declaration -> INT_FUN NAME .)
+    EQUALS          reduce using rule 45 (declaration -> INT_FUN NAME .)
+
+
+state 54
+
+    (46) declaration -> STRING NAME .
+
+    SEMICOLON       reduce using rule 46 (declaration -> STRING NAME .)
+    EQUALS          reduce using rule 46 (declaration -> STRING NAME .)
+
+
+state 55
+
+    (12) funct_def -> INT_FUN NAME funct_param LEFT_CURLY_BRACKET . instruction RIGHT_CURLY_BRACKET
+    (7) instruction -> . NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> . NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> . NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (22) instruction -> . RETURN instruction
+    (28) instruction -> . WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (29) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (39) instruction -> . expression SEMICOLON
+    (40) instruction -> . declaration SEMICOLON
+    (41) instruction -> . instruction instruction
+    (51) instruction -> . PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    NAME            shift and go to state 17
+    RETURN          shift and go to state 20
+    WHILE           shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 24
+    INT             shift and go to state 25
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    instruction                    shift and go to state 78
+    expression                     shift and go to state 19
+    declaration                    shift and go to state 23
+
+state 56
+
+    (14) funct_param -> LEFT_BRACKET empty . RIGHT_BRACKET
+
+    RIGHT_BRACKET   shift and go to state 79
+
+
+state 57
+
+    (15) funct_param -> LEFT_BRACKET expression . RIGHT_BRACKET
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+    (17) expressions -> expression . COMA expression
+
+    RIGHT_BRACKET   shift and go to state 80
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    COMA            shift and go to state 81
+
+
+state 58
+
+    (16) funct_param -> LEFT_BRACKET expressions . RIGHT_BRACKET
+    (18) expressions -> expressions . COMA expression
+
+    RIGHT_BRACKET   shift and go to state 82
+    COMA            shift and go to state 83
+
+
+state 59
+
+    (13) funct_def -> VOID NAME funct_param LEFT_CURLY_BRACKET . instruction RIGHT_CURLY_BRACKET
+    (7) instruction -> . NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> . NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> . NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (22) instruction -> . RETURN instruction
+    (28) instruction -> . WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (29) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (39) instruction -> . expression SEMICOLON
+    (40) instruction -> . declaration SEMICOLON
+    (41) instruction -> . instruction instruction
+    (51) instruction -> . PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    NAME            shift and go to state 17
+    RETURN          shift and go to state 20
+    WHILE           shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 24
+    INT             shift and go to state 25
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    instruction                    shift and go to state 84
+    expression                     shift and go to state 19
+    declaration                    shift and go to state 23
+
+state 60
+
+    (7) instruction -> NAME LEFT_BRACKET empty . RIGHT_BRACKET SEMICOLON
+
+    RIGHT_BRACKET   shift and go to state 85
+
+
+state 61
+
+    (8) instruction -> NAME LEFT_BRACKET expression . RIGHT_BRACKET SEMICOLON
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+    (10) function_input -> expression . COMA expression
+    (11) function_input -> expression . COMA function_input
+
+    RIGHT_BRACKET   shift and go to state 86
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    COMA            shift and go to state 87
+
+
+state 62
+
+    (9) instruction -> NAME LEFT_BRACKET function_input . RIGHT_BRACKET SEMICOLON
+
+    RIGHT_BRACKET   shift and go to state 88
+
+
+state 63
+
+    (48) expression -> NAME EQUALS expression .
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+    SEMICOLON       reduce using rule 48 (expression -> NAME EQUALS expression .)
+    MORE            reduce using rule 48 (expression -> NAME EQUALS expression .)
+    LESS            reduce using rule 48 (expression -> NAME EQUALS expression .)
+    MORE_OR_EQUAL   reduce using rule 48 (expression -> NAME EQUALS expression .)
+    LESS_OR_EQUAL   reduce using rule 48 (expression -> NAME EQUALS expression .)
+    IS_EQUAL        reduce using rule 48 (expression -> NAME EQUALS expression .)
+    RIGHT_BRACKET   reduce using rule 48 (expression -> NAME EQUALS expression .)
+    COMA            reduce using rule 48 (expression -> NAME EQUALS expression .)
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+  ! MULTIPLY        [ reduce using rule 48 (expression -> NAME EQUALS expression .) ]
+  ! DIVIDE          [ reduce using rule 48 (expression -> NAME EQUALS expression .) ]
+  ! PLUS            [ reduce using rule 48 (expression -> NAME EQUALS expression .) ]
+  ! MINUS           [ reduce using rule 48 (expression -> NAME EQUALS expression .) ]
+
+
+state 64
+
+    (23) condition -> LEFT_BRACKET expression MORE . expression RIGHT_BRACKET
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    expression                     shift and go to state 89
+    declaration                    shift and go to state 40
+
+state 65
+
+    (24) condition -> LEFT_BRACKET expression LESS . expression RIGHT_BRACKET
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    expression                     shift and go to state 90
+    declaration                    shift and go to state 40
+
+state 66
+
+    (25) condition -> LEFT_BRACKET expression MORE_OR_EQUAL . expression RIGHT_BRACKET
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    expression                     shift and go to state 91
+    declaration                    shift and go to state 40
+
+state 67
+
+    (26) condition -> LEFT_BRACKET expression LESS_OR_EQUAL . expression RIGHT_BRACKET
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    expression                     shift and go to state 92
+    declaration                    shift and go to state 40
+
+state 68
+
+    (27) condition -> LEFT_BRACKET expression IS_EQUAL . expression RIGHT_BRACKET
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    expression                     shift and go to state 93
+    declaration                    shift and go to state 40
+
+state 69
+
+    (35) expression -> expression MULTIPLY expression .
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+
+    SEMICOLON       reduce using rule 35 (expression -> expression MULTIPLY expression .)
+    MULTIPLY        reduce using rule 35 (expression -> expression MULTIPLY expression .)
+    DIVIDE          reduce using rule 35 (expression -> expression MULTIPLY expression .)
+    PLUS            reduce using rule 35 (expression -> expression MULTIPLY expression .)
+    MINUS           reduce using rule 35 (expression -> expression MULTIPLY expression .)
+    MORE            reduce using rule 35 (expression -> expression MULTIPLY expression .)
+    LESS            reduce using rule 35 (expression -> expression MULTIPLY expression .)
+    MORE_OR_EQUAL   reduce using rule 35 (expression -> expression MULTIPLY expression .)
+    LESS_OR_EQUAL   reduce using rule 35 (expression -> expression MULTIPLY expression .)
+    IS_EQUAL        reduce using rule 35 (expression -> expression MULTIPLY expression .)
+    RIGHT_BRACKET   reduce using rule 35 (expression -> expression MULTIPLY expression .)
+    COMA            reduce using rule 35 (expression -> expression MULTIPLY expression .)
+
+  ! MULTIPLY        [ shift and go to state 42 ]
+  ! DIVIDE          [ shift and go to state 43 ]
+  ! PLUS            [ shift and go to state 44 ]
+  ! MINUS           [ shift and go to state 45 ]
+
+
+state 70
+
+    (36) expression -> expression DIVIDE expression .
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+
+    SEMICOLON       reduce using rule 36 (expression -> expression DIVIDE expression .)
+    MULTIPLY        reduce using rule 36 (expression -> expression DIVIDE expression .)
+    DIVIDE          reduce using rule 36 (expression -> expression DIVIDE expression .)
+    PLUS            reduce using rule 36 (expression -> expression DIVIDE expression .)
+    MINUS           reduce using rule 36 (expression -> expression DIVIDE expression .)
+    MORE            reduce using rule 36 (expression -> expression DIVIDE expression .)
+    LESS            reduce using rule 36 (expression -> expression DIVIDE expression .)
+    MORE_OR_EQUAL   reduce using rule 36 (expression -> expression DIVIDE expression .)
+    LESS_OR_EQUAL   reduce using rule 36 (expression -> expression DIVIDE expression .)
+    IS_EQUAL        reduce using rule 36 (expression -> expression DIVIDE expression .)
+    RIGHT_BRACKET   reduce using rule 36 (expression -> expression DIVIDE expression .)
+    COMA            reduce using rule 36 (expression -> expression DIVIDE expression .)
+
+  ! MULTIPLY        [ shift and go to state 42 ]
+  ! DIVIDE          [ shift and go to state 43 ]
+  ! PLUS            [ shift and go to state 44 ]
+  ! MINUS           [ shift and go to state 45 ]
+
+
+state 71
+
+    (37) expression -> expression PLUS expression .
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+
+    SEMICOLON       reduce using rule 37 (expression -> expression PLUS expression .)
+    PLUS            reduce using rule 37 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 37 (expression -> expression PLUS expression .)
+    MORE            reduce using rule 37 (expression -> expression PLUS expression .)
+    LESS            reduce using rule 37 (expression -> expression PLUS expression .)
+    MORE_OR_EQUAL   reduce using rule 37 (expression -> expression PLUS expression .)
+    LESS_OR_EQUAL   reduce using rule 37 (expression -> expression PLUS expression .)
+    IS_EQUAL        reduce using rule 37 (expression -> expression PLUS expression .)
+    RIGHT_BRACKET   reduce using rule 37 (expression -> expression PLUS expression .)
+    COMA            reduce using rule 37 (expression -> expression PLUS expression .)
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 43
+
+  ! MULTIPLY        [ reduce using rule 37 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 37 (expression -> expression PLUS expression .) ]
+  ! PLUS            [ shift and go to state 44 ]
+  ! MINUS           [ shift and go to state 45 ]
+
+
+state 72
+
+    (38) expression -> expression MINUS expression .
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+
+    SEMICOLON       reduce using rule 38 (expression -> expression MINUS expression .)
+    PLUS            reduce using rule 38 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 38 (expression -> expression MINUS expression .)
+    MORE            reduce using rule 38 (expression -> expression MINUS expression .)
+    LESS            reduce using rule 38 (expression -> expression MINUS expression .)
+    MORE_OR_EQUAL   reduce using rule 38 (expression -> expression MINUS expression .)
+    LESS_OR_EQUAL   reduce using rule 38 (expression -> expression MINUS expression .)
+    IS_EQUAL        reduce using rule 38 (expression -> expression MINUS expression .)
+    RIGHT_BRACKET   reduce using rule 38 (expression -> expression MINUS expression .)
+    COMA            reduce using rule 38 (expression -> expression MINUS expression .)
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 43
+
+  ! MULTIPLY        [ reduce using rule 38 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 38 (expression -> expression MINUS expression .) ]
+  ! PLUS            [ shift and go to state 44 ]
+  ! MINUS           [ shift and go to state 45 ]
+
+
+state 73
+
+    (28) instruction -> WHILE condition LEFT_CURLY_BRACKET . instruction RIGHT_CURLY_BRACKET
+    (7) instruction -> . NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> . NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> . NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (22) instruction -> . RETURN instruction
+    (28) instruction -> . WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (29) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (39) instruction -> . expression SEMICOLON
+    (40) instruction -> . declaration SEMICOLON
+    (41) instruction -> . instruction instruction
+    (51) instruction -> . PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    NAME            shift and go to state 17
+    RETURN          shift and go to state 20
+    WHILE           shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 24
+    INT             shift and go to state 25
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    instruction                    shift and go to state 94
+    expression                     shift and go to state 19
+    declaration                    shift and go to state 23
+
+state 74
+
+    (29) instruction -> IF condition LEFT_CURLY_BRACKET . instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> IF condition LEFT_CURLY_BRACKET . instruction RIGHT_CURLY_BRACKET if_else_block
+    (7) instruction -> . NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> . NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> . NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (22) instruction -> . RETURN instruction
+    (28) instruction -> . WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (29) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (39) instruction -> . expression SEMICOLON
+    (40) instruction -> . declaration SEMICOLON
+    (41) instruction -> . instruction instruction
+    (51) instruction -> . PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    NAME            shift and go to state 17
+    RETURN          shift and go to state 20
+    WHILE           shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 24
+    INT             shift and go to state 25
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    instruction                    shift and go to state 95
+    expression                     shift and go to state 19
+    declaration                    shift and go to state 23
+
+state 75
+
+    (47) expression -> declaration EQUALS expression .
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+
+  ! shift/reduce conflict for MULTIPLY resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+    SEMICOLON       reduce using rule 47 (expression -> declaration EQUALS expression .)
+    MORE            reduce using rule 47 (expression -> declaration EQUALS expression .)
+    LESS            reduce using rule 47 (expression -> declaration EQUALS expression .)
+    MORE_OR_EQUAL   reduce using rule 47 (expression -> declaration EQUALS expression .)
+    LESS_OR_EQUAL   reduce using rule 47 (expression -> declaration EQUALS expression .)
+    IS_EQUAL        reduce using rule 47 (expression -> declaration EQUALS expression .)
+    RIGHT_BRACKET   reduce using rule 47 (expression -> declaration EQUALS expression .)
+    COMA            reduce using rule 47 (expression -> declaration EQUALS expression .)
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+  ! MULTIPLY        [ reduce using rule 47 (expression -> declaration EQUALS expression .) ]
+  ! DIVIDE          [ reduce using rule 47 (expression -> declaration EQUALS expression .) ]
+  ! PLUS            [ reduce using rule 47 (expression -> declaration EQUALS expression .) ]
+  ! MINUS           [ reduce using rule 47 (expression -> declaration EQUALS expression .) ]
+
+
+state 76
+
+    (51) instruction -> PRINT LEFT_BRACKET expression . RIGHT_BRACKET SEMICOLON
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+
+    RIGHT_BRACKET   shift and go to state 96
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+
+state 77
+
+    (44) expression -> APOSTROF NAME APOSTROF .
+
+    SEMICOLON       reduce using rule 44 (expression -> APOSTROF NAME APOSTROF .)
+    MULTIPLY        reduce using rule 44 (expression -> APOSTROF NAME APOSTROF .)
+    DIVIDE          reduce using rule 44 (expression -> APOSTROF NAME APOSTROF .)
+    PLUS            reduce using rule 44 (expression -> APOSTROF NAME APOSTROF .)
+    MINUS           reduce using rule 44 (expression -> APOSTROF NAME APOSTROF .)
+    MORE            reduce using rule 44 (expression -> APOSTROF NAME APOSTROF .)
+    LESS            reduce using rule 44 (expression -> APOSTROF NAME APOSTROF .)
+    MORE_OR_EQUAL   reduce using rule 44 (expression -> APOSTROF NAME APOSTROF .)
+    LESS_OR_EQUAL   reduce using rule 44 (expression -> APOSTROF NAME APOSTROF .)
+    IS_EQUAL        reduce using rule 44 (expression -> APOSTROF NAME APOSTROF .)
+    RIGHT_BRACKET   reduce using rule 44 (expression -> APOSTROF NAME APOSTROF .)
+    COMA            reduce using rule 44 (expression -> APOSTROF NAME APOSTROF .)
+
+
+state 78
+
+    (12) funct_def -> INT_FUN NAME funct_param LEFT_CURLY_BRACKET instruction . RIGHT_CURLY_BRACKET
+    (41) instruction -> instruction . instruction
+    (7) instruction -> . NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> . NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> . NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (22) instruction -> . RETURN instruction
+    (28) instruction -> . WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (29) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (39) instruction -> . expression SEMICOLON
+    (40) instruction -> . declaration SEMICOLON
+    (41) instruction -> . instruction instruction
+    (51) instruction -> . PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    RIGHT_CURLY_BRACKET shift and go to state 97
+    NAME            shift and go to state 17
+    RETURN          shift and go to state 20
+    WHILE           shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 24
+    INT             shift and go to state 25
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    instruction                    shift and go to state 32
+    expression                     shift and go to state 19
+    declaration                    shift and go to state 23
+
+state 79
+
+    (14) funct_param -> LEFT_BRACKET empty RIGHT_BRACKET .
+
+    LEFT_CURLY_BRACKET reduce using rule 14 (funct_param -> LEFT_BRACKET empty RIGHT_BRACKET .)
+
+
+state 80
+
+    (15) funct_param -> LEFT_BRACKET expression RIGHT_BRACKET .
+
+    LEFT_CURLY_BRACKET reduce using rule 15 (funct_param -> LEFT_BRACKET expression RIGHT_BRACKET .)
+
+
+state 81
+
+    (17) expressions -> expression COMA . expression
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    expression                     shift and go to state 98
+    declaration                    shift and go to state 40
+
+state 82
+
+    (16) funct_param -> LEFT_BRACKET expressions RIGHT_BRACKET .
+
+    LEFT_CURLY_BRACKET reduce using rule 16 (funct_param -> LEFT_BRACKET expressions RIGHT_BRACKET .)
+
+
+state 83
+
+    (18) expressions -> expressions COMA . expression
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    expression                     shift and go to state 99
+    declaration                    shift and go to state 40
+
+state 84
+
+    (13) funct_def -> VOID NAME funct_param LEFT_CURLY_BRACKET instruction . RIGHT_CURLY_BRACKET
+    (41) instruction -> instruction . instruction
+    (7) instruction -> . NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> . NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> . NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (22) instruction -> . RETURN instruction
+    (28) instruction -> . WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (29) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (39) instruction -> . expression SEMICOLON
+    (40) instruction -> . declaration SEMICOLON
+    (41) instruction -> . instruction instruction
+    (51) instruction -> . PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    RIGHT_CURLY_BRACKET shift and go to state 100
+    NAME            shift and go to state 17
+    RETURN          shift and go to state 20
+    WHILE           shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 24
+    INT             shift and go to state 25
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    instruction                    shift and go to state 32
+    expression                     shift and go to state 19
+    declaration                    shift and go to state 23
+
+state 85
+
+    (7) instruction -> NAME LEFT_BRACKET empty RIGHT_BRACKET . SEMICOLON
+
+    SEMICOLON       shift and go to state 101
+
+
+state 86
+
+    (8) instruction -> NAME LEFT_BRACKET expression RIGHT_BRACKET . SEMICOLON
+
+    SEMICOLON       shift and go to state 102
+
+
+state 87
+
+    (10) function_input -> expression COMA . expression
+    (11) function_input -> expression COMA . function_input
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (10) function_input -> . expression COMA expression
+    (11) function_input -> . expression COMA function_input
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    INT             shift and go to state 25
+    NAME            shift and go to state 39
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    expression                     shift and go to state 103
+    function_input                 shift and go to state 104
+    declaration                    shift and go to state 40
+
+state 88
+
+    (9) instruction -> NAME LEFT_BRACKET function_input RIGHT_BRACKET . SEMICOLON
+
+    SEMICOLON       shift and go to state 105
+
+
+state 89
+
+    (23) condition -> LEFT_BRACKET expression MORE expression . RIGHT_BRACKET
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+
+    RIGHT_BRACKET   shift and go to state 106
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+
+state 90
+
+    (24) condition -> LEFT_BRACKET expression LESS expression . RIGHT_BRACKET
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+
+    RIGHT_BRACKET   shift and go to state 107
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+
+state 91
+
+    (25) condition -> LEFT_BRACKET expression MORE_OR_EQUAL expression . RIGHT_BRACKET
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+
+    RIGHT_BRACKET   shift and go to state 108
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+
+state 92
+
+    (26) condition -> LEFT_BRACKET expression LESS_OR_EQUAL expression . RIGHT_BRACKET
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+
+    RIGHT_BRACKET   shift and go to state 109
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+
+state 93
+
+    (27) condition -> LEFT_BRACKET expression IS_EQUAL expression . RIGHT_BRACKET
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+
+    RIGHT_BRACKET   shift and go to state 110
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+
+state 94
+
+    (28) instruction -> WHILE condition LEFT_CURLY_BRACKET instruction . RIGHT_CURLY_BRACKET
+    (41) instruction -> instruction . instruction
+    (7) instruction -> . NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> . NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> . NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (22) instruction -> . RETURN instruction
+    (28) instruction -> . WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (29) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (39) instruction -> . expression SEMICOLON
+    (40) instruction -> . declaration SEMICOLON
+    (41) instruction -> . instruction instruction
+    (51) instruction -> . PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    RIGHT_CURLY_BRACKET shift and go to state 111
+    NAME            shift and go to state 17
+    RETURN          shift and go to state 20
+    WHILE           shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 24
+    INT             shift and go to state 25
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    instruction                    shift and go to state 32
+    expression                     shift and go to state 19
+    declaration                    shift and go to state 23
+
+state 95
+
+    (29) instruction -> IF condition LEFT_CURLY_BRACKET instruction . RIGHT_CURLY_BRACKET else
+    (30) instruction -> IF condition LEFT_CURLY_BRACKET instruction . RIGHT_CURLY_BRACKET if_else_block
+    (41) instruction -> instruction . instruction
+    (7) instruction -> . NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> . NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> . NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (22) instruction -> . RETURN instruction
+    (28) instruction -> . WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (29) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (39) instruction -> . expression SEMICOLON
+    (40) instruction -> . declaration SEMICOLON
+    (41) instruction -> . instruction instruction
+    (51) instruction -> . PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    RIGHT_CURLY_BRACKET shift and go to state 112
+    NAME            shift and go to state 17
+    RETURN          shift and go to state 20
+    WHILE           shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 24
+    INT             shift and go to state 25
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    instruction                    shift and go to state 32
+    expression                     shift and go to state 19
+    declaration                    shift and go to state 23
+
+state 96
+
+    (51) instruction -> PRINT LEFT_BRACKET expression RIGHT_BRACKET . SEMICOLON
+
+    SEMICOLON       shift and go to state 113
+
+
+state 97
+
+    (12) funct_def -> INT_FUN NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .
+
+    MAIN            reduce using rule 12 (funct_def -> INT_FUN NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    INT_FUN         reduce using rule 12 (funct_def -> INT_FUN NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    VOID            reduce using rule 12 (funct_def -> INT_FUN NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    $end            reduce using rule 12 (funct_def -> INT_FUN NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+
+
+state 98
+
+    (17) expressions -> expression COMA expression .
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+
+    RIGHT_BRACKET   reduce using rule 17 (expressions -> expression COMA expression .)
+    COMA            reduce using rule 17 (expressions -> expression COMA expression .)
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+
+state 99
+
+    (18) expressions -> expressions COMA expression .
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+
+    RIGHT_BRACKET   reduce using rule 18 (expressions -> expressions COMA expression .)
+    COMA            reduce using rule 18 (expressions -> expressions COMA expression .)
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+
+
+state 100
+
+    (13) funct_def -> VOID NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .
+
+    MAIN            reduce using rule 13 (funct_def -> VOID NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    INT_FUN         reduce using rule 13 (funct_def -> VOID NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    VOID            reduce using rule 13 (funct_def -> VOID NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    $end            reduce using rule 13 (funct_def -> VOID NAME funct_param LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+
+
+state 101
+
+    (7) instruction -> NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON .
+
+    RIGHT_CURLY_BRACKET reduce using rule 7 (instruction -> NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON .)
+    NAME            reduce using rule 7 (instruction -> NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON .)
+    RETURN          reduce using rule 7 (instruction -> NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON .)
+    WHILE           reduce using rule 7 (instruction -> NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON .)
+    IF              reduce using rule 7 (instruction -> NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON .)
+    PRINT           reduce using rule 7 (instruction -> NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON .)
+    INT             reduce using rule 7 (instruction -> NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON .)
+    APOSTROF        reduce using rule 7 (instruction -> NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON .)
+    INT_FUN         reduce using rule 7 (instruction -> NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON .)
+    STRING          reduce using rule 7 (instruction -> NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON .)
+
+
+state 102
+
+    (8) instruction -> NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .
+
+    RIGHT_CURLY_BRACKET reduce using rule 8 (instruction -> NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    NAME            reduce using rule 8 (instruction -> NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    RETURN          reduce using rule 8 (instruction -> NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    WHILE           reduce using rule 8 (instruction -> NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    IF              reduce using rule 8 (instruction -> NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    PRINT           reduce using rule 8 (instruction -> NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    INT             reduce using rule 8 (instruction -> NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    APOSTROF        reduce using rule 8 (instruction -> NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    INT_FUN         reduce using rule 8 (instruction -> NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    STRING          reduce using rule 8 (instruction -> NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+
+
+state 103
+
+    (10) function_input -> expression COMA expression .
+    (35) expression -> expression . MULTIPLY expression
+    (36) expression -> expression . DIVIDE expression
+    (37) expression -> expression . PLUS expression
+    (38) expression -> expression . MINUS expression
+    (10) function_input -> expression . COMA expression
+    (11) function_input -> expression . COMA function_input
+
+    RIGHT_BRACKET   reduce using rule 10 (function_input -> expression COMA expression .)
+    MULTIPLY        shift and go to state 42
+    DIVIDE          shift and go to state 43
+    PLUS            shift and go to state 44
+    MINUS           shift and go to state 45
+    COMA            shift and go to state 87
+
+
+state 104
+
+    (11) function_input -> expression COMA function_input .
+
+    RIGHT_BRACKET   reduce using rule 11 (function_input -> expression COMA function_input .)
+
+
+state 105
+
+    (9) instruction -> NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON .
+
+    RIGHT_CURLY_BRACKET reduce using rule 9 (instruction -> NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON .)
+    NAME            reduce using rule 9 (instruction -> NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON .)
+    RETURN          reduce using rule 9 (instruction -> NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON .)
+    WHILE           reduce using rule 9 (instruction -> NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON .)
+    IF              reduce using rule 9 (instruction -> NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON .)
+    PRINT           reduce using rule 9 (instruction -> NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON .)
+    INT             reduce using rule 9 (instruction -> NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON .)
+    APOSTROF        reduce using rule 9 (instruction -> NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON .)
+    INT_FUN         reduce using rule 9 (instruction -> NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON .)
+    STRING          reduce using rule 9 (instruction -> NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON .)
+
+
+state 106
+
+    (23) condition -> LEFT_BRACKET expression MORE expression RIGHT_BRACKET .
+
+    RIGHT_CURLY_BRACKET reduce using rule 23 (condition -> LEFT_BRACKET expression MORE expression RIGHT_BRACKET .)
+    LEFT_CURLY_BRACKET reduce using rule 23 (condition -> LEFT_BRACKET expression MORE expression RIGHT_BRACKET .)
+
+
+state 107
+
+    (24) condition -> LEFT_BRACKET expression LESS expression RIGHT_BRACKET .
+
+    RIGHT_CURLY_BRACKET reduce using rule 24 (condition -> LEFT_BRACKET expression LESS expression RIGHT_BRACKET .)
+    LEFT_CURLY_BRACKET reduce using rule 24 (condition -> LEFT_BRACKET expression LESS expression RIGHT_BRACKET .)
+
+
+state 108
+
+    (25) condition -> LEFT_BRACKET expression MORE_OR_EQUAL expression RIGHT_BRACKET .
+
+    RIGHT_CURLY_BRACKET reduce using rule 25 (condition -> LEFT_BRACKET expression MORE_OR_EQUAL expression RIGHT_BRACKET .)
+    LEFT_CURLY_BRACKET reduce using rule 25 (condition -> LEFT_BRACKET expression MORE_OR_EQUAL expression RIGHT_BRACKET .)
+
+
+state 109
+
+    (26) condition -> LEFT_BRACKET expression LESS_OR_EQUAL expression RIGHT_BRACKET .
+
+    RIGHT_CURLY_BRACKET reduce using rule 26 (condition -> LEFT_BRACKET expression LESS_OR_EQUAL expression RIGHT_BRACKET .)
+    LEFT_CURLY_BRACKET reduce using rule 26 (condition -> LEFT_BRACKET expression LESS_OR_EQUAL expression RIGHT_BRACKET .)
+
+
+state 110
+
+    (27) condition -> LEFT_BRACKET expression IS_EQUAL expression RIGHT_BRACKET .
+
+    RIGHT_CURLY_BRACKET reduce using rule 27 (condition -> LEFT_BRACKET expression IS_EQUAL expression RIGHT_BRACKET .)
+    LEFT_CURLY_BRACKET reduce using rule 27 (condition -> LEFT_BRACKET expression IS_EQUAL expression RIGHT_BRACKET .)
+
+
+state 111
+
+    (28) instruction -> WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .
+
+    RIGHT_CURLY_BRACKET reduce using rule 28 (instruction -> WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    NAME            reduce using rule 28 (instruction -> WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    RETURN          reduce using rule 28 (instruction -> WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    WHILE           reduce using rule 28 (instruction -> WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    IF              reduce using rule 28 (instruction -> WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    PRINT           reduce using rule 28 (instruction -> WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    INT             reduce using rule 28 (instruction -> WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    APOSTROF        reduce using rule 28 (instruction -> WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    INT_FUN         reduce using rule 28 (instruction -> WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    STRING          reduce using rule 28 (instruction -> WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+
+
+state 112
+
+    (29) instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET . else
+    (30) instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET . if_else_block
+    (33) else -> . ELSE LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (34) else -> . ELSE LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET
+    (31) if_else_block -> . IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (32) if_else_block -> . IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+
+    ELSE            shift and go to state 116
+    IF_ELSE         shift and go to state 117
+
+    else                           shift and go to state 114
+    if_else_block                  shift and go to state 115
+
+state 113
+
+    (51) instruction -> PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .
+
+    RIGHT_CURLY_BRACKET reduce using rule 51 (instruction -> PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    NAME            reduce using rule 51 (instruction -> PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    RETURN          reduce using rule 51 (instruction -> PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    WHILE           reduce using rule 51 (instruction -> PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    IF              reduce using rule 51 (instruction -> PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    PRINT           reduce using rule 51 (instruction -> PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    INT             reduce using rule 51 (instruction -> PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    APOSTROF        reduce using rule 51 (instruction -> PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    INT_FUN         reduce using rule 51 (instruction -> PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+    STRING          reduce using rule 51 (instruction -> PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON .)
+
+
+state 114
+
+    (29) instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .
+
+    RIGHT_CURLY_BRACKET reduce using rule 29 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    NAME            reduce using rule 29 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    RETURN          reduce using rule 29 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    WHILE           reduce using rule 29 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    IF              reduce using rule 29 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    PRINT           reduce using rule 29 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    INT             reduce using rule 29 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    APOSTROF        reduce using rule 29 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    INT_FUN         reduce using rule 29 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    STRING          reduce using rule 29 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+
+
+state 115
+
+    (30) instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .
+
+    RIGHT_CURLY_BRACKET reduce using rule 30 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    NAME            reduce using rule 30 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    RETURN          reduce using rule 30 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    WHILE           reduce using rule 30 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    IF              reduce using rule 30 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    PRINT           reduce using rule 30 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    INT             reduce using rule 30 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    APOSTROF        reduce using rule 30 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    INT_FUN         reduce using rule 30 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    STRING          reduce using rule 30 (instruction -> IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+
+
+state 116
+
+    (33) else -> ELSE . LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (34) else -> ELSE . LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET
+
+    LEFT_CURLY_BRACKET shift and go to state 118
+
+
+state 117
+
+    (31) if_else_block -> IF_ELSE . condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (32) if_else_block -> IF_ELSE . condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (23) condition -> . LEFT_BRACKET expression MORE expression RIGHT_BRACKET
+    (24) condition -> . LEFT_BRACKET expression LESS expression RIGHT_BRACKET
+    (25) condition -> . LEFT_BRACKET expression MORE_OR_EQUAL expression RIGHT_BRACKET
+    (26) condition -> . LEFT_BRACKET expression LESS_OR_EQUAL expression RIGHT_BRACKET
+    (27) condition -> . LEFT_BRACKET expression IS_EQUAL expression RIGHT_BRACKET
+
+    LEFT_BRACKET    shift and go to state 18
+
+    condition                      shift and go to state 119
+
+state 118
+
+    (33) else -> ELSE LEFT_CURLY_BRACKET . instruction RIGHT_CURLY_BRACKET
+    (34) else -> ELSE LEFT_CURLY_BRACKET . empty RIGHT_CURLY_BRACKET
+    (7) instruction -> . NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> . NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> . NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (22) instruction -> . RETURN instruction
+    (28) instruction -> . WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (29) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (39) instruction -> . expression SEMICOLON
+    (40) instruction -> . declaration SEMICOLON
+    (41) instruction -> . instruction instruction
+    (51) instruction -> . PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (52) empty -> .
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    NAME            shift and go to state 17
+    RETURN          shift and go to state 20
+    WHILE           shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 24
+    RIGHT_CURLY_BRACKET reduce using rule 52 (empty -> .)
+    INT             shift and go to state 25
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    instruction                    shift and go to state 120
+    empty                          shift and go to state 121
+    expression                     shift and go to state 19
+    declaration                    shift and go to state 23
+
+state 119
+
+    (31) if_else_block -> IF_ELSE condition . LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (32) if_else_block -> IF_ELSE condition . LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+
+    LEFT_CURLY_BRACKET shift and go to state 122
+
+
+state 120
+
+    (33) else -> ELSE LEFT_CURLY_BRACKET instruction . RIGHT_CURLY_BRACKET
+    (41) instruction -> instruction . instruction
+    (7) instruction -> . NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> . NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> . NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (22) instruction -> . RETURN instruction
+    (28) instruction -> . WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (29) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (39) instruction -> . expression SEMICOLON
+    (40) instruction -> . declaration SEMICOLON
+    (41) instruction -> . instruction instruction
+    (51) instruction -> . PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    RIGHT_CURLY_BRACKET shift and go to state 123
+    NAME            shift and go to state 17
+    RETURN          shift and go to state 20
+    WHILE           shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 24
+    INT             shift and go to state 25
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    instruction                    shift and go to state 32
+    expression                     shift and go to state 19
+    declaration                    shift and go to state 23
+
+state 121
+
+    (34) else -> ELSE LEFT_CURLY_BRACKET empty . RIGHT_CURLY_BRACKET
+
+    RIGHT_CURLY_BRACKET shift and go to state 124
+
+
+state 122
+
+    (31) if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET . instruction RIGHT_CURLY_BRACKET else
+    (32) if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET . instruction RIGHT_CURLY_BRACKET if_else_block
+    (7) instruction -> . NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> . NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> . NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (22) instruction -> . RETURN instruction
+    (28) instruction -> . WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (29) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (39) instruction -> . expression SEMICOLON
+    (40) instruction -> . declaration SEMICOLON
+    (41) instruction -> . instruction instruction
+    (51) instruction -> . PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    NAME            shift and go to state 17
+    RETURN          shift and go to state 20
+    WHILE           shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 24
+    INT             shift and go to state 25
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    instruction                    shift and go to state 125
+    expression                     shift and go to state 19
+    declaration                    shift and go to state 23
+
+state 123
+
+    (33) else -> ELSE LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .
+
+    RIGHT_CURLY_BRACKET reduce using rule 33 (else -> ELSE LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    NAME            reduce using rule 33 (else -> ELSE LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    RETURN          reduce using rule 33 (else -> ELSE LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    WHILE           reduce using rule 33 (else -> ELSE LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    IF              reduce using rule 33 (else -> ELSE LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    PRINT           reduce using rule 33 (else -> ELSE LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    INT             reduce using rule 33 (else -> ELSE LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    APOSTROF        reduce using rule 33 (else -> ELSE LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    INT_FUN         reduce using rule 33 (else -> ELSE LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+    STRING          reduce using rule 33 (else -> ELSE LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET .)
+
+
+state 124
+
+    (34) else -> ELSE LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET .
+
+    RIGHT_CURLY_BRACKET reduce using rule 34 (else -> ELSE LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET .)
+    NAME            reduce using rule 34 (else -> ELSE LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET .)
+    RETURN          reduce using rule 34 (else -> ELSE LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET .)
+    WHILE           reduce using rule 34 (else -> ELSE LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET .)
+    IF              reduce using rule 34 (else -> ELSE LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET .)
+    PRINT           reduce using rule 34 (else -> ELSE LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET .)
+    INT             reduce using rule 34 (else -> ELSE LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET .)
+    APOSTROF        reduce using rule 34 (else -> ELSE LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET .)
+    INT_FUN         reduce using rule 34 (else -> ELSE LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET .)
+    STRING          reduce using rule 34 (else -> ELSE LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET .)
+
+
+state 125
+
+    (31) if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction . RIGHT_CURLY_BRACKET else
+    (32) if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction . RIGHT_CURLY_BRACKET if_else_block
+    (41) instruction -> instruction . instruction
+    (7) instruction -> . NAME LEFT_BRACKET empty RIGHT_BRACKET SEMICOLON
+    (8) instruction -> . NAME LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (9) instruction -> . NAME LEFT_BRACKET function_input RIGHT_BRACKET SEMICOLON
+    (22) instruction -> . RETURN instruction
+    (28) instruction -> . WHILE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (29) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (30) instruction -> . IF condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+    (39) instruction -> . expression SEMICOLON
+    (40) instruction -> . declaration SEMICOLON
+    (41) instruction -> . instruction instruction
+    (51) instruction -> . PRINT LEFT_BRACKET expression RIGHT_BRACKET SEMICOLON
+    (35) expression -> . expression MULTIPLY expression
+    (36) expression -> . expression DIVIDE expression
+    (37) expression -> . expression PLUS expression
+    (38) expression -> . expression MINUS expression
+    (42) expression -> . INT
+    (43) expression -> . NAME
+    (44) expression -> . APOSTROF NAME APOSTROF
+    (47) expression -> . declaration EQUALS expression
+    (48) expression -> . NAME EQUALS expression
+    (45) declaration -> . INT_FUN NAME
+    (46) declaration -> . STRING NAME
+
+    RIGHT_CURLY_BRACKET shift and go to state 126
+    NAME            shift and go to state 17
+    RETURN          shift and go to state 20
+    WHILE           shift and go to state 21
+    IF              shift and go to state 22
+    PRINT           shift and go to state 24
+    INT             shift and go to state 25
+    APOSTROF        shift and go to state 26
+    INT_FUN         shift and go to state 27
+    STRING          shift and go to state 28
+
+    instruction                    shift and go to state 32
+    expression                     shift and go to state 19
+    declaration                    shift and go to state 23
+
+state 126
+
+    (31) if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET . else
+    (32) if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET . if_else_block
+    (33) else -> . ELSE LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET
+    (34) else -> . ELSE LEFT_CURLY_BRACKET empty RIGHT_CURLY_BRACKET
+    (31) if_else_block -> . IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else
+    (32) if_else_block -> . IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block
+
+    ELSE            shift and go to state 116
+    IF_ELSE         shift and go to state 117
+
+    else                           shift and go to state 127
+    if_else_block                  shift and go to state 128
+
+state 127
+
+    (31) if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .
+
+    RIGHT_CURLY_BRACKET reduce using rule 31 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    NAME            reduce using rule 31 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    RETURN          reduce using rule 31 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    WHILE           reduce using rule 31 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    IF              reduce using rule 31 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    PRINT           reduce using rule 31 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    INT             reduce using rule 31 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    APOSTROF        reduce using rule 31 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    INT_FUN         reduce using rule 31 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+    STRING          reduce using rule 31 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET else .)
+
+
+state 128
+
+    (32) if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .
+
+    RIGHT_CURLY_BRACKET reduce using rule 32 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    NAME            reduce using rule 32 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    RETURN          reduce using rule 32 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    WHILE           reduce using rule 32 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    IF              reduce using rule 32 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    PRINT           reduce using rule 32 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    INT             reduce using rule 32 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    APOSTROF        reduce using rule 32 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    INT_FUN         reduce using rule 32 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+    STRING          reduce using rule 32 (if_else_block -> IF_ELSE condition LEFT_CURLY_BRACKET instruction RIGHT_CURLY_BRACKET if_else_block .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for NAME in state 32 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 32 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 32 resolved as shift
+WARNING: shift/reduce conflict for IF in state 32 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 32 resolved as shift
+WARNING: shift/reduce conflict for INT in state 32 resolved as shift
+WARNING: shift/reduce conflict for APOSTROF in state 32 resolved as shift
+WARNING: shift/reduce conflict for INT_FUN in state 32 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 32 resolved as shift
+WARNING: shift/reduce conflict for NAME in state 46 resolved as shift
+WARNING: shift/reduce conflict for RETURN in state 46 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 46 resolved as shift
+WARNING: shift/reduce conflict for IF in state 46 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 46 resolved as shift
+WARNING: shift/reduce conflict for INT in state 46 resolved as shift
+WARNING: shift/reduce conflict for APOSTROF in state 46 resolved as shift
+WARNING: shift/reduce conflict for INT_FUN in state 46 resolved as shift
+WARNING: shift/reduce conflict for STRING in state 46 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 63 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 63 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 63 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 63 resolved as shift
+WARNING: shift/reduce conflict for MULTIPLY in state 75 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 75 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 75 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 75 resolved as shift

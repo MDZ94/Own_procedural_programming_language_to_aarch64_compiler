@@ -1,0 +1,29 @@
+
+main{
+
+    string a = "Hello";
+    string d = "Hello2";
+    string e = "Hello3";
+    string c = "Goodbye";
+    string f = "Goodbye1";
+    string g = "Goodbye2";
+    int y = 10;
+    int z = 10;
+
+
+    if(y == z){
+        print(a);
+    }ifelse(y<15){
+        print(c);
+    }ifelse(y<20){
+        if(y<18){
+            print(d);
+        }else{
+            print(e);
+        }
+        print(f);
+    }else{
+        print(g);
+    }
+    return 0;
+}

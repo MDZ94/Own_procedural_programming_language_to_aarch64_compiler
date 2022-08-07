@@ -1,0 +1,9 @@
+
+main{
+
+    string a = "Hello";
+
+    print(a);
+    
+    return 0;
+}

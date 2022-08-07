@@ -1,0 +1,17 @@
+void new2(int a=0,int b=0){
+if(a==b){
+    print(o);
+}else{
+    string l = "Goodbye";
+    print(l);
+}
+}
+
+main{
+    string o = "Hello";
+    int z = 10;
+    int g = 10;
+    new2(a=z , b=g);
+
+    return 0;
+}
