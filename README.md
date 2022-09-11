@@ -21,9 +21,9 @@ The basic examples of new language syntax are in ./tests folder. The advanced do
 
 In order to use compilator you need to start teminal commad 
 
-'''
+```
 python myCompiler [filename with program written in new programmming language] [name of file which will be created with assembly code file (the .asm extension will be added to the name)]
-'''
+```
 
 ### Running assembly code
 
