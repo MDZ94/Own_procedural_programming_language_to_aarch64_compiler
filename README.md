@@ -2,7 +2,7 @@
 
 ## The aim of the project:
 
-###New primitive procedural language (similar to C) to aarch64 assembly compiler using Python PLY
+### New primitive procedural language (similar to C) to aarch64 assembly compiler using Python PLY
 
 The program compiles new structural language to Aarch64 Assembly.
 
